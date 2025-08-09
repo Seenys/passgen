@@ -1,3 +1,5 @@
+'use client';
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { Toaster } from '@/components/ui/sonner';
@@ -7,7 +9,7 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Toaster position="bottom-right" />
+      <Toaster position="bottom-right" richColors />
       {children}
     </QueryClientProvider>
   );
