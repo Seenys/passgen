@@ -1,0 +1,29 @@
+# Dependencias
+node_modules
+.pnp
+.pnp.js
+
+# Archivos de construcción
+.next/
+out/
+build/
+dist/
+
+# Archivos generados
+app/generated/
+
+# Archivos de caché
+.vercel
+.turbo
+
+# Archivos de configuración específicos
+.eslintcache
+
+# Archivos de bloqueo de paquetes
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Archivos de entorno
+.env*
+!.env.example
