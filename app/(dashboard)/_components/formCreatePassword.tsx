@@ -1,14 +1,20 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CopyIcon } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { generatePassword } from '@/lib/password';
 
 const FormCreatePassword = () => {
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    const generate = generatePassword();
+    setPassword(generate);
+  }, []);
 
   const handlerCopyPassword = () => {
     navigator.clipboard
