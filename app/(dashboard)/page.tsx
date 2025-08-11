@@ -1,7 +1,9 @@
+import { FormCreatePassword } from './_components';
+
 const DashboardPage = () => {
   return (
-    <div>
-      <h1>Dashboard</h1>
+    <div className="container mx-auto px-4">
+      <FormCreatePassword />
     </div>
   );
 };
