@@ -19,6 +19,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { generatePassword, PasswordOptions } from '@/lib/password';
+import FormSavePassword from './FormSavePassword';
 import PasswordDisplay from './PasswordDisplay';
 
 const formOptions = [
@@ -129,10 +130,7 @@ const FormCreatePassword = () => {
                   <ShieldCheck />
                   Generate Password
                 </Button>
-                <Button>
-                  <SaveIcon />
-                  Save Password
-                </Button>
+                <FormSavePassword />
               </div>
             </form>
           </Form>
