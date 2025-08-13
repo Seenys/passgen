@@ -1,7 +1,15 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { ArrowUp01, CaseLower, CaseUpper, CopyIcon, Hash } from 'lucide-react';
+import {
+  ArrowUp01,
+  CaseLower,
+  CaseUpper,
+  CopyIcon,
+  Hash,
+  SaveIcon,
+  ShieldCheck,
+} from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
@@ -115,6 +123,16 @@ const FormCreatePassword = () => {
                     />
                   ))}
                 </div>
+              </div>
+              <div className="grid grid-cols-1 gap-3 pt-4 sm:grid-cols-2">
+                <Button type="submit">
+                  <ShieldCheck />
+                  Generate Password
+                </Button>
+                <Button>
+                  <SaveIcon />
+                  Save Password
+                </Button>
               </div>
             </form>
           </Form>
