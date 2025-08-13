@@ -8,14 +8,24 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { generatePassword, PasswordOptions } from '@/lib/password';
 
-const PasswordDisplay = ({ options }: { options?: PasswordOptions }) => {
+const PasswordDisplay = ({
+  options,
+  onGenerate,
+}: {
+  options?: PasswordOptions;
+  onGenerate?: (password: string) => void;
+}) => {
   const [password, setPassword] = useState('');
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
-    const generate = generatePassword(options || {});
+    const generate = generatePassword(options);
     setPassword(generate);
+
+    if (onGenerate) {
+      onGenerate(generate);
+    }
   }, [options]);
 
   const handlerCopyPassword = () => {

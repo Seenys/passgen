@@ -1,18 +1,24 @@
 export interface PasswordOptions {
   length?: number;
-  includeUppercase?: boolean;
-  includeLowercase?: boolean;
-  includeNumbers?: boolean;
-  includeSymbols?: boolean;
+  useUppercase?: boolean;
+  useLowercase?: boolean;
+  useNumbers?: boolean;
+  useSymbols?: boolean;
 }
 
 export const generatePassword = ({
-    includeUppercase = false,
-    includeLowercase = false,
-    includeNumbers = false,
-    includeSymbols = false,
+    useUppercase = false,
+    useLowercase = false,
+    useNumbers = false,
+    useSymbols = false,
     length = 12,
-}: PasswordOptions = {}) => {
+}: PasswordOptions = {
+    length: 12,
+    useUppercase: false,
+    useLowercase: false,
+    useNumbers: false,
+    useSymbols: false,
+}) => {
 
     const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const lowercase = 'abcdefghijklmnopqrstuvwxyz';
@@ -21,16 +27,16 @@ export const generatePassword = ({
     let password = '';
 
     let characters = '';
-    if (includeUppercase) {
+    if (useUppercase) {
         characters += uppercase;
     }
-    if (includeLowercase) {
+    if (useLowercase) {
         characters += lowercase;
     }
-    if (includeNumbers) {
+    if (useNumbers) {
         characters += numbers;
     }
-    if (includeSymbols) {
+    if (useSymbols) {
         characters += symbols;
     }
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SaveIcon } from 'lucide-react';
 import { useForm } from 'react-hook-form';
@@ -18,22 +18,40 @@ import {
 } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { PasswordOptions } from '@/lib/password';
 import { passwordSchema, PasswordSchemaType } from '@/schema/pasword.schema';
+import OptionTags from './OptionTags';
 
-const FormSavePassword = () => {
+interface FormSavePasswordProps {
+  password: string;
+  passwordConfig: PasswordOptions;
+}
+
+const FormSavePassword = ({ password, passwordConfig }: FormSavePasswordProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const form = useForm<PasswordSchemaType>({
     resolver: zodResolver(passwordSchema),
     defaultValues: {
       title: '',
-      password: '',
+      password,
     },
   });
 
   function onSubmit(values: PasswordSchemaType) {
     console.log(values);
   }
+
+  useEffect(() => {
+    if (isOpen) {
+      form.setValue('password', password);
+      form.setValue('length', passwordConfig?.length || 12);
+      form.setValue('useUppercase', passwordConfig.useUppercase);
+      form.setValue('useLowercase', passwordConfig.useLowercase);
+      form.setValue('useNumbers', passwordConfig.useNumbers);
+      form.setValue('useSymbols', passwordConfig.useSymbols);
+    }
+  }, [password, passwordConfig, isOpen]);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -77,11 +95,26 @@ const FormSavePassword = () => {
                           disabled
                           className="h-12 bg-gray-100 font-mono text-gray-800"
                           {...field}
+                          value={password}
                         />
                       </FormControl>
                     </FormItem>
                   )}
                 />
+                <div className="rounded-xl border border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-100 p-4">
+                  <h3 className="mb-3 text-sm font-semibold text-blue-800">
+                    Password Configuration
+                  </h3>
+                  <div className="space-y-4 text-sm">
+                    <p>
+                      <span className="font-bold">Length:</span> {passwordConfig.length}
+                    </p>
+                    <p>
+                      <span className="font-bold">Options:</span>
+                      <OptionTags passwordConfig={passwordConfig} />
+                    </p>
+                  </div>
+                </div>
               </form>
             </Form>
           </section>
@@ -89,7 +122,7 @@ const FormSavePassword = () => {
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button type="submit" onClick={() => setIsOpen(false)}>
+            <Button type="submit" onClick={form.handleSubmit(onSubmit)}>
               Save changes
             </Button>
           </DialogFooter>

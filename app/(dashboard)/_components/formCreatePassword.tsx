@@ -25,40 +25,44 @@ import PasswordDisplay from './PasswordDisplay';
 const formOptions = [
   {
     label: 'Uppercase Letters',
-    value: 'includeUppercase',
+    value: 'useUppercase',
+
     icon: <CaseUpper />,
     description: 'Include uppercase letters (A - Z)',
   },
   {
     label: 'Lowercase Letters',
-    value: 'includeLowercase',
+    value: 'useLowercase',
     icon: <CaseLower />,
     description: 'Include lowercase letters (a - z)',
   },
   {
     label: 'Numbers',
-    value: 'includeNumbers',
+    value: 'useNumbers',
     icon: <ArrowUp01 />,
     description: 'Include numbers (0 - 9)',
   },
   {
     label: 'Symbols',
-    value: 'includeSymbols',
+    value: 'useSymbols',
     icon: <Hash />,
     description: 'Include symbols (!, @, #, $, etc.)',
   },
 ] as const;
 
 const FormCreatePassword = () => {
-  const [options, setOptions] = useState<PasswordOptions>({});
+  const [options, setOptions] = useState<PasswordOptions>({
+    length: 12,
+    useUppercase: true,
+    useLowercase: true,
+    useNumbers: true,
+    useSymbols: true,
+  });
+  const [generatedPassword, setGeneratedPassword] = useState('');
 
   const form = useForm<PasswordOptions>({
     defaultValues: {
-      length: 12,
-      includeUppercase: true,
-      includeLowercase: true,
-      includeNumbers: true,
-      includeSymbols: true,
+      ...options,
     },
   });
 
@@ -67,13 +71,18 @@ const FormCreatePassword = () => {
     setOptions({ ...newOptions });
   };
 
+  const hanldlePasswordGenerated = (password: string) => {
+    setGeneratedPassword(password);
+  };
+
   return (
     <div className="mx-auto max-w-2xl space-y-6 p-6">
       <header className="space-y-2 text-center">
         <h1 className="text-3xl font-bold text-gray-700">Password Generator</h1>
         <p className="text-gray-500">Generate strong and secure passwords with ease.</p>
       </header>
-      <PasswordDisplay options={options} />
+      <PasswordDisplay options={options} onGenerate={hanldlePasswordGenerated} />
+
       <Card>
         <CardContent>
           <h2 className="mb-4 text-xl font-semibold text-gray-800">Password Configuration</h2>
@@ -130,7 +139,7 @@ const FormCreatePassword = () => {
                   <ShieldCheck />
                   Generate Password
                 </Button>
-                <FormSavePassword />
+                <FormSavePassword password={generatedPassword} passwordConfig={form.getValues()} />
               </div>
             </form>
           </Form>
