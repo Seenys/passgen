@@ -49,6 +49,9 @@ const FormSavePassword = ({ password, passwordConfig }: FormSavePasswordProps) =
       toast.success(`Password ${data.title} has been created successfully`);
       setIsOpen(false);
     },
+    onError(error) {
+      toast.error(error.message);
+    },
   });
 
   function onSubmit(values: PasswordSchemaType) {
