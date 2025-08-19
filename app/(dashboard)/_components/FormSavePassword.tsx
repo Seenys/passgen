@@ -122,10 +122,10 @@ const FormSavePassword = ({ password, passwordConfig }: FormSavePasswordProps) =
                   <p>
                     <span className="font-bold">Length:</span> {passwordConfig.length}
                   </p>
-                  <p>
+                  <>
                     <span className="font-bold">Options:</span>
                     <OptionTags passwordConfig={passwordConfig} />
-                  </p>
+                  </>
                 </div>
               </div>
             </form>
