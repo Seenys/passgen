@@ -31,11 +31,13 @@ export default {
   importOrder: [
     '^(react/(.*)$)|^(react$)',
     '^(next/(.*)$)|^(next$)',
+    '',
     '<THIRD_PARTY_MODULES>',
     '',
     '^@/components/(.*)$',
     '^@/lib/(.*)$',
     '^@/hooks/(.*)$',
+    '',
     '^@/(.*)$',
     '^[./]',
   ],

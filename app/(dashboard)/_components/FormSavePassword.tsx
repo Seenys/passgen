@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { SaveIcon } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -41,6 +41,8 @@ const FormSavePassword = ({ password, passwordConfig }: FormSavePasswordProps) =
     },
   });
 
+  const queryClient = useQueryClient();
+
   const { mutate, isPending } = useMutation({
     mutationFn: createPasswordAction,
     async onSuccess(data) {
@@ -48,6 +50,8 @@ const FormSavePassword = ({ password, passwordConfig }: FormSavePasswordProps) =
 
       toast.success(`Password ${data.title} has been created successfully`);
       setIsOpen(false);
+
+      queryClient.invalidateQueries({ queryKey: ['passwords'] });
     },
     onError(error) {
       toast.error(error.message);
